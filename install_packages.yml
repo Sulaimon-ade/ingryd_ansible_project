@@ -1,40 +1,21 @@
 ---
-- name: Install Apache and htop
+- name: updating repository and removing packages
   hosts: all
   become: true
 
   tasks:
-    - name: Install Apache
-      apt:
-        name: apache2
-        state: latest
-      when: ansible_architecture == "Ubuntu"
-
-    - name: install htop
-      apt:
-        name: htop
-        state: latest
-      when: ansible_distribution == "Ubuntu"
-
-    - name: Add php support for Apache
-      apt:
-        name: libapache2-mod-php
-        state: latest
-      when: ansible_distribution == "Ubuntu" 
-
-    - name: Update Repository
-      dnf:
+    - name: update Repository
+      package:
         update_cache: yes
-      when: ansible_distribution == "OracleLinux"
+      when: ansible_architecture == "Ubuntu" and ansible_distribution == "OracleLinux"
 
-    - name: install Apache2 package
-      dnf:
-        name: httpd
-        state: latest
-      when: ansible_distribution == "OracleLinux"
+    - name: Remove Apache2 and php packages
+      package:
+        name:
+         - httpd
+         - php
+         - apache2
+         - libapache2-mod-php
+        state: absent
+      when: ansible_architecture == "Ubuntu" and ansible_distribution == "OracleLinux" 
 
-    - name: Add php support for apache
-      dnf:
-        name: php
-        state: latest
-      when: ansible_distribution == "OracleLinux"
