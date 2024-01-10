@@ -8,10 +8,33 @@
       apt:
         name: apache2
         state: latest
-      when: ansible_architecture == "x86_64"
-        
-    - name: Install htop
+      when: ansible_architecture == "Ubuntu"
+
+    - name: install htop
       apt:
         name: htop
         state: latest
-      when: ansible_architecture == "x86_64"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Add php support for Apache
+      apt:
+        name: libapache2-mod-php
+        state: latest
+      when: ansible_distribution == "Ubuntu" 
+
+    - name: Update Repository
+      dnf:
+        update_cache: yes
+      when: ansible_distribution == "OracleLinux"
+
+    - name: install Apache2 package
+      dnf:
+        name: httpd
+        state: latest
+      when: ansible_distribution == "OracleLinux"
+
+    - name: Add php support for apache
+      dnf:
+        name: php
+        state: latest
+      when: ansible_distribution == "OracleLinux"
