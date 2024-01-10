@@ -8,9 +8,10 @@
       apt:
         name: apache2
         state: latest
-
+      when: ansible_architecture == "x86_64"
+        
     - name: Install htop
       apt:
         name: htop
         state: latest
-
+      when: ansible_architecture == "x86_64"
