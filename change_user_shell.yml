@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+    - name: change /bin/sh to /bin/bash
+      replace:
+        path: /etc/passwd
+        regexp: '/bin/sh'
+        replace: '/bin/bash'
+        backup: yes
+

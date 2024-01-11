@@ -3,11 +3,19 @@
   become: true
 
   tasks:
-    - name: create oga usre
+    - name: create oga user
       tags: always
       user:
         name: oga
         group: root
+        shell: /bin/bash
+
+    - name: creating user goddess
+      tags: always
+      user:
+        name: goddess
+        group: root
+        shell: /bin/bash
 
     - name: Add ssh key for Oga
       tags: always
