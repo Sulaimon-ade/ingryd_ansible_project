@@ -1,13 +1,11 @@
 ---
-- name: updating repository and removing packages
-  hosts: all
+- hosts: all
   become: true
 
   tasks:
     - name: update Repository
-      package:
+      apt:
         update_cache: yes
-      when: ansible_architecture == "Ubuntu" and ansible_distribution == "OracleLinux"
 
     - name: Remove Apache2 and php packages
       package:
