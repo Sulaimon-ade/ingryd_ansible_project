@@ -1,0 +1,5 @@
+- name: Add ssh key for Oga
+  tags: always
+  authorized_key:
+    user: oga
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHmiqEHubMUaftNkCM5cDYEaXhzods5bnSBnXws0jZWT ansible
