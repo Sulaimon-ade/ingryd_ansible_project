@@ -1,34 +1,29 @@
 ---
-- hosts: all 
+
+- hosts: all
   become: true
-
   tasks:
-    - name: create oga user
-      tags: always
-      user:
-        name: oga
-        group: root
-        shell: /bin/bash
 
-    - name: creating user goddess
-      tags: always
-      user:
-        name: goddess
-        group: root
-        shell: /bin/bash
+# Plays for all hosts
 
-    - name: Add ssh key for Oga
-      tags: always
-      authorized_key:
-        user: oga
-        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHmiqEHubMUaftNkCM5cDYEaXhzods5bnSBnXws0jZWT ansible"
+  - name: Create oga user
+    tags: always
+    user:
+      name: oga
+      group: root
 
-    - name: Add a sudoer file for oga
-      tags: always
-      copy:
-        src: sudoer_oga
-        dest: /etc/sudoers.d/oga
-        owner: root
-        group: root
-        mode: 0440
 
+  - name: Add ssh key for Oga
+    tags: always
+    authorized_key:
+      user: oga
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHmiqEHubMUaftNkCM5cDYEaXhzods5bnSBnXws0jZWT ansible"
+
+  - name: Add a sudoer file for Oga
+    tags: always
+    copy:
+      src: sudoer_oga
+      dest: /etc/sudoers.d/oga
+      owner: root
+      group: root
+      mode: 0440
